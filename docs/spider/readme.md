@@ -1,5 +1,6 @@
 # **Qu'est-ce qu'un Spider**<a href="../../"><img align="right" src="../../assets/atomicWebScraping.png" alt="Web scraping" height="64px"></a>
 <h3>Un spider dans le contexte du web scraping est un programme automatisé, aussi nommé robot ou bot. Son principal but est de parcourir systématiquement le web. Il navigue depuis l’URL initiale, suit les liens (le crawling) et collecte le contenu pour en extraire les données (le parsing).</h3>  
+
 En web scraping, les spiders sont indispensables pour automatiser la collecte massive de données à partir de sites web en suivant des règles prédéfinies.
 Le processus typique comporte trois étapes principales :  
 1. Le fetching (la requête). Le spider télécharge les pages web ciblées.  
