@@ -6,10 +6,10 @@ Ce qui implique l'utilisation de scripts ou d'outils pour parcourir les pages we
 [Les principaux cas d'utilisation](scraping/useCases)
 [Les mesures anti-scraping](blockingScraperBots/antiScrawlingMeasures)
 [Le contournement](blockingScraperBots/bypasss)  
-[L'honeypot](blockingScraperBots/honeypot)
+<!-- [L'honeypot](blockingScraperBots/honeypot) -->
 
 [Spider](spider)
-___
+<!-- ___
 [XPath et CSS Selectors](selectors)
 
 [L'éthique du web scraping](ethicalScraping)
@@ -38,4 +38,4 @@ ___
 [Pipeline de données](pipeline)
 
 
-[Déploiement avec Scrapy Cloud](scrapy-cloud)
+[Déploiement avec Scrapy Cloud](scrapy-cloud) -->
