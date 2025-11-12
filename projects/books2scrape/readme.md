@@ -33,3 +33,10 @@ ___
 ### **Références**
 - [Documentation officielle Scrapy](https://docs.scrapy.org/)
 - [CSS Selectors Reference](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors)
+___
+## **Exporter les données**
+* En "json" ➜ `scrapy runspider b2s -o data.json`
+  * Faire '`ctrl` + `A` + `K` + `F`' pour l'indentation.
+* En "csv"  ➜ `scrapy runspider b2s -o data.csv`
+
+Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' permet de bien afficher les caractères.  
