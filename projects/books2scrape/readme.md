@@ -12,27 +12,26 @@ Le but est de collecter et structurer les données pour chaque livre d’une pag
 ## **Le fonctionnement avec le langage de requête "xpath"**
 1. **Collecte des blocs de livres** avec la requête XPath sur la classe de chaque livre (`//li[@class="col-xs-6 col-sm-4 col-md-3 col-lg-3"]`).
 2. **Extraction des informations** pour chaque livre :
-   - Titre (`.//h3/a/@title`)
-   - Prix (`.//p[@class="price_color"]/text()`)
-   - Source de l’image (`.//img/@src`)
+   * Titre (`.//h3/a/@title`)
+   * Prix (`.//p[@class="price_color"]/text()`)
+   * Source de l’image (`.//img/@src`)
 3. **Astuces XPath** documentées dans le fichier pour manipuler descendants, attributs, siblings, etc.
 ### **Notes**
-- La syntaxe `.//` dans les XPaths cible des descendants à partir d’un noeud local (ex: un bloc livre).
-- Les méthodes `.get()`, `.getall()`, `.extract()`, etc., selon le nombre de valeurs attendues.
-- Pour extraire « le premier » élément, utiliser `[0]` ou `.get()` ; pour tous, `.getall()`.
+* La syntaxe `.//` dans les XPaths cible des descendants à partir d’un noeud local (ex: un bloc livre).
+* Les méthodes `.get()`, `.getall()`, `.extract()`, etc., selon le nombre de valeurs attendues.
+* Pour extraire « le premier » élément, utiliser `[0]` ou `.get()` ; pour tous, `.getall()`.
 ### **Références**
-- [Documentation officielle Scrapy](https://docs.scrapy.org/)
-- [XPath Cheatsheet](https://devhints.io/xpath)
+[Documentation officielle Scrapy](https://docs.scrapy.org/)  
+[XPath Cheatsheet](https://devhints.io/xpath)
 ___
 ## **Le fonctionnement avec le "CSS"**
-- Récupération des prix des livres présents avec le sélecteur CSS `p.price_color`.
-- Envoi des résultats sous forme de dictionnaire contenant le prix extrait.
+* Récupération des prix des livres présents avec le sélecteur CSS `p.price_color`.
+* Envoi des résultats sous forme de dictionnaire contenant le prix extrait.
 ### **Notes**
-- Le sélecteur CSS `p.price_color::text` cible le texte du prix pour chaque livre.
-- Le spider explore uniquement la page d’accueil dans cette version.
+* Le sélecteur CSS `p.price_color::text` cible le texte du prix pour chaque livre.
+* Le spider explore uniquement la page d’accueil dans cette version.
 ### **Références**
-- [Documentation officielle Scrapy](https://docs.scrapy.org/)
-- [CSS Selectors Reference](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors)
+[CSS Selectors Reference](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors)
 ___
 ## **Exporter les données**
 * En "json" ➜ `scrapy runspider b2s -o data.json`
@@ -47,6 +46,17 @@ Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' encode les caractères.
 [Documentation officielle Scrapy - Paramètre FEED_EXPORT_ENCODING](https://docs.scrapy.org/en/latest/topics/settings.html#feed-export-encoding)
 ___
 ## **Récupérer les données sur plusieurs pages**
-### Gestion de la pagination
+### **Gestion de la pagination**
 * Le lien vers la page suivante est extrait par `//li[@class='next']/a/@href`.
 * Si ce lien existe, le spider construit l’URL suivante et continue jusqu’à la dernière page.
+### **Parcours des pages de catalogue**
+* Le spider récupère tous les blocs livres avec le XPath ➜ `//li[@class="col-xs-6 col-sm-4 col-md-3 col-lg-3"]`.
+* Pour chaque bloc, il extrait le lien relatif vers la page du livre ➜ `.//h3/a/@href`.
+* Il suit ce lien avec `response.follow` et démarche le parseur `parse_book_page`.
+### **Extraire aux pages individuelles**
+* Sur la page de chaque livre, les informations suivantes sont extraites avec XPath :
+  * Titre ➜ `//h1/text()`.
+  * Prix ➜ `//p[@class="price_color"]/text()`.
+### **Références**
+[Documentation officielle Scrapy - Parsing Pages with XPath](https://docs.scrapy.org/en/latest/topics/selectors.html)  
+[Documentation officielle Scrapy - Follow Links Documentation](https://docs.scrapy.org/en/latest/topics/request-response.html#scrapy.http.Request.follow)
