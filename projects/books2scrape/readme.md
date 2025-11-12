@@ -39,4 +39,14 @@ ___
   * Faire '`ctrl` + `A` + `K` + `F`' pour l'indentation.
 * En "csv"  ➜ `scrapy runspider b2s -o data.csv`
 
-Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' permet de bien afficher les caractères.  
+Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' encode les caractères.  
+### **Références**
+[Documentation officielle Scrapy - Feed Exports](https://docs.scrapy.org/en/latest/topics/feed-exports.html)  
+[Documentation officielle Scrapy - Item Exporters](https://docs.scrapy.org/en/latest/topics/item-exporters.html)  
+[Documentation officielle Scrapy - Commandes CLI](https://docs.scrapy.org/en/latest/topics/commands.html#running-spiders)  
+[Documentation officielle Scrapy - Paramètre FEED_EXPORT_ENCODING](https://docs.scrapy.org/en/latest/topics/settings.html#feed-export-encoding)
+___
+## **Récupérer les données sur plusieurs pages**
+### Gestion de la pagination
+* Le lien vers la page suivante est extrait par `//li[@class='next']/a/@href`.
+* Si ce lien existe, le spider construit l’URL suivante et continue jusqu’à la dernière page.
