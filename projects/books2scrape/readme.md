@@ -9,17 +9,27 @@
 Il s'agit d'un spider Scrapy visant à extraire automatiquement des informations bibliographiques (titre, prix, image, ...) depuis le site de démonstration [books.toscrape.com](https://books.toscrape.com/).  
 Le but est de collecter et structurer les données pour chaque livre d’une page principale.
 ---
-## **Le fonctionnement**
+## **Le fonctionnement avec le langage de requête "xpath"**
 1. **Collecte des blocs de livres** avec la requête XPath sur la classe de chaque livre (`//li[@class="col-xs-6 col-sm-4 col-md-3 col-lg-3"]`).
 2. **Extraction des informations** pour chaque livre :
    - Titre (`.//h3/a/@title`)
    - Prix (`.//p[@class="price_color"]/text()`)
    - Source de l’image (`.//img/@src`)
 3. **Astuces XPath** documentées dans le fichier pour manipuler descendants, attributs, siblings, etc.
-## **Remarques**
+### **Notes**
 - La syntaxe `.//` dans les XPaths cible des descendants à partir d’un noeud local (ex: un bloc livre).
 - Les méthodes `.get()`, `.getall()`, `.extract()`, etc., selon le nombre de valeurs attendues.
 - Pour extraire « le premier » élément, utiliser `[0]` ou `.get()` ; pour tous, `.getall()`.
-## **Références**
+### **Références**
 - [Documentation officielle Scrapy](https://docs.scrapy.org/)
 - [XPath Cheatsheet](https://devhints.io/xpath)
+___
+## **Le fonctionnement avec le "CSS"**
+- Récupération des prix des livres présents avec le sélecteur CSS `p.price_color`.
+- Envoi des résultats sous forme de dictionnaire contenant le prix extrait.
+### **Notes**
+- Le sélecteur CSS `p.price_color::text` cible le texte du prix pour chaque livre.
+- Le spider explore uniquement la page d’accueil dans cette version.
+### **Références**
+- [Documentation officielle Scrapy](https://docs.scrapy.org/)
+- [CSS Selectors Reference](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors)
