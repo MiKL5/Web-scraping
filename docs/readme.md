@@ -2,9 +2,9 @@
 Le web scraping est une technique consistant à extraire automatiquement des données à partir de sites web.  
 Ce qui implique l'utilisation de scripts ou d'outils pour parcourir les pages web, analyser leur structure (HTML, DOM) et collecter des informations spécifiques (e.g. texte, image, lien, tableau). ​
 ---
-[Les concepts clés](scraping/concepts)
-[Les principaux cas d'utilisation](scraping/useCases)
-[Les mesures anti-scraping](blockingScraperBots/antiScrawlingMeasures)
+[Les concepts clés](scraping/concepts)  
+[Les principaux cas d'utilisation](scraping/useCases)  
+[Les mesures anti-scraping](blockingScraperBots/antiScrawlingMeasures)  
 [Le contournement](blockingScraperBots/bypasss)  
 <!-- [L'honeypot](blockingScraperBots/honeypot) -->
 
