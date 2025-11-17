@@ -4,6 +4,7 @@ Ce qui implique l'utilisation de scripts ou d'outils pour parcourir les pages we
 ---
 ## Projets avec <a href="#"><img align="cetner" src="https://raw.githubusercontent.com/scrapy/scrapy/master/docs/_static/logo.svg" alt="Scrapy" height="18px"></a>
 1. [Books](projects/books2scrape) <kbd>_In progress_</kbd>
+2. [FelisCrawler](projects/felisCrawler)
 <!-- ## Projets avec Selenium<a href="#"><img align="cetner" src="https://www.selenium.dev/images/selenium_logo_square_green.png" alt="Selenium" height="18px"></a>
 1. [Amazon product scraper](amazonProductScraper)
 2. [Indeed job scraper](indeedJobScraper)
