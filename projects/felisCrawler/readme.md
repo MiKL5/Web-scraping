@@ -79,7 +79,7 @@ Des graphiques concernant
 Le scraping limité à un usage expérimental et pédagogique. Il respecte explicitement les règles Wikipédia (licence CC BY-SA, attribution requise). Il n'y a pas de collecte de données personnelles dans le périmètre du projet. 
 Le respect de l’environnement est possible par la modulation des paramètres pour minimiser l’impact carbone et éviter de surcharger le serveur.
 
-![screenshot](assets/screenshot.png
+![screenshot](assets/screenshot.png)
 ![screenshot1](assets/screenshot1.png)
 ## **Références et documentation**
 [Scrapy — Spiders](https://docs.scrapy.org/en/latest/topics/spiders.html)  
