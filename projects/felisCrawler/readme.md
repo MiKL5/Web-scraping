@@ -51,18 +51,18 @@ scraper tous les articles Wikipédia (en français) liés aux chats et félins. 
 ## **L'utiliser**
 Il faut Python 3.9 ou plus récent. Scrapy, Streamlit et Pandas.
 ### **Pour installer les dépendances**
-```py
+```sh
 pip install scrapy streamlit pandas
 ```
 Démarrage de l’application :
-```py
+```sh
 streamlit run app.py
 ```
 ### **Depuis l’interface ouverte dans un navigateur**, vous pouvez
 * Paramétrer les options de scraping dans la barre latérale
 * Lancer le scraping
 * Explorer les données collectées dans les onglets
-* Filtrer, rechercher, et exporter les résultats au format JSON
+* Filtrer, rechercher, et exporter les résultats au format JSON et CSV
 ## **Les spécificités du spider**
 * Configuration fine par attributs Scrapy (profondeur, délais, concurrent, User-Agent)
 * Respect du fichier '_robots.txt_'
@@ -71,15 +71,17 @@ streamlit run app.py
 * Compatible avec tous les formats d’export supportés (FEEDS Scrapy)
 ## Visualiser et analyser
 Il y a un tableau filtrable pour sélectionner les pages par profondeur, nombre d’images, longueur, titre. Les détails de chaque page.  
-Des graphiques concerant
+Des graphiques concernant
 * La répartition des pages par profondeur de crawl
 * La relation longueur de texte/nombre d’images (scatter)
 * La distribution du nombre de paragraphes par page
 ## **Éthique, gouvernance et bonnes pratiques**
-Le scraping limité à un usage expérimental et pédagogique. Il respect explicitement les règles Wikipédia (licence CC BY-SA, attribution requise). Il n'y a pas de collecte de données personnelles dans le périmètre du projet. 
+Le scraping limité à un usage expérimental et pédagogique. Il respecte explicitement les règles Wikipédia (licence CC BY-SA, attribution requise). Il n'y a pas de collecte de données personnelles dans le périmètre du projet. 
 Le respect de l’environnement est possible par la modulation des paramètres pour minimiser l’impact carbone et éviter de surcharger le serveur.
 
 ![screenshot](assets/screenshot.png)
+
+![screenshot1](assets/screenshot1.png)
 ## **Références et documentation**
 [Scrapy — Spiders](https://docs.scrapy.org/en/latest/topics/spiders.html)  
 [Scrapy — Sélecteurs XPath](https://docs.scrapy.org/en/latest/topics/selectors.html)  

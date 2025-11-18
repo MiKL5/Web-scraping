@@ -14,7 +14,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🐱 FelisCrawler 🐈")
+st.title("🐱 **FelisCrawler** 🐈")
 st.markdown("")
 
 # Initialiser la session
@@ -23,8 +23,35 @@ if "scraping" not in st.session_state:
 if "last_output" not in st.session_state:
     st.session_state["last_output"] = None
 
+# État pour la fenêtre de confirmation de téléchargement
+if "show_download_modal" not in st.session_state:
+    st.session_state["show_download_modal"] = False
+if "download_info" not in st.session_state:
+    st.session_state["download_info"] = {}
+
+# Utilitaire pour nommer le CSV à partir du JSON
+def _csv_name(json_name: str) -> str:
+    try:
+        p = Path(json_name)
+        return str(p.with_suffix(".csv"))
+    except Exception:
+        return (json_name.rsplit(".", 1)[0] if "." in json_name else json_name) + ".csv"
+
+# Ouvre la modale de confirmation
+def _open_download_modal(file_name: str, kind: str, server_hint: str | None = None):
+    st.session_state["download_info"] = {
+        "kind": kind,
+        "file_name": file_name,
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg" if kind == "csv"
+                else "https://upload.wikimedia.org/wikipedia/commons/c/c9/JSON_vector_logo.svg",
+        "server_hint": server_hint or ""
+    }
+    st.session_state["show_download_modal"] = True
+
 # Sidebar des paramètres
-st.sidebar.header("⚙️ Je configure le scraping")
+st.sidebar.title("⚙️ Configurer le scraper")
+st.sidebar.header(" ") # espacement
+st.sidebar.header(" ") # espacement
 
 depth_limit = st.sidebar.slider(
     "Quelle est la profondeur de crawl ?",
@@ -33,6 +60,8 @@ depth_limit = st.sidebar.slider(
     value    = 4,
     help     = "C'est le nombre de niveaux de liens à suivre. Plus c'est élevé, plus ça consomme de ressources."
 )
+
+st.sidebar.header(" ") # espacement
 
 download_delay = st.sidebar.number_input(
     "Combien de secondes entre les requêtes ?",
@@ -43,6 +72,8 @@ download_delay = st.sidebar.number_input(
     help       = "Temps d'attente entre chaque requête HTTP. Il est recommandé d'être ≥ 1 s pour respecter les serveurs."
 )
 
+st.sidebar.header(" ") # espacement
+
 concurrent_requests = st.sidebar.slider(
     "Combien de requêtes simultanées ?",
     min_value       =  1,
@@ -51,29 +82,38 @@ concurrent_requests = st.sidebar.slider(
     help            = "Plus il y a de requêtes en parallèle, plus le serveur est chargé."
 )
 
+st.sidebar.header(" ") # espacement
+
 output_file = st.sidebar.text_input(
     "Le nom du fichier (JSON) est",
     value   = "result.json",
     help    = "Nom du fichier JSON où sauvegarder les résultats du scraping."
 )
+st.sidebar.header(" ") # espacement
 
 st.sidebar.markdown("___")
+st.sidebar.markdown(" ") # Espacement
+st.sidebar.markdown(" ") # Espacement
 st.sidebar.markdown("### 🌱 Les recommandations sont")
 st.sidebar.markdown(
     "* La profondeur de **_2 à 4_**\n"
     "* Le délai doit être **_≥ 1 s_**\n"
     "* Et **_≤ 8_** requêtes simultanées\n"
 )
-st.sidebar.markdown("<br><br>", unsafe_allow_html=True)
-
+st.sidebar.markdown(" ") # Espacement
+st.sidebar.markdown(" ") # Espacement
+st.sidebar.markdown(" ") # Espacement
 # Bouton pour crawler
 if st.sidebar.button("🚀 Je scrape !", type="primary"):
     st.session_state["scraping"]   = True
     st.session_state["start_time"] = time.time()
 
+    output_file_csv = _csv_name(output_file)
+
     cmd = [
         "scrapy" , "runspider" , "wikichat_spider.py",
         "-O", output_file,
+        "-O", output_file_csv,  # sortie CSV en parallèle
         "-s", f"DEPTH_LIMIT={depth_limit}",
         "-s", f"DOWNLOAD_DELAY={download_delay}",
         "-s", f"CONCURRENT_REQUESTS={concurrent_requests}",
@@ -93,9 +133,12 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
         progress       = 0
 
         try:
-            p = Path(output_file)
-            if p.exists():
-                p.unlink()
+            p_json = Path(output_file)
+            p_csv  = Path(output_file_csv)
+            if p_json.exists():
+                p_json.unlink()
+            if p_csv.exists():
+                p_csv.unlink()
         except Exception as _:
             pass
 
@@ -169,6 +212,14 @@ if output_path.exists():
                 })
 
             df = pd.DataFrame(df_data)
+
+            # fallback : garantir un CSV si Scrapy ne l'a pas écrit
+            try:
+                csv_fallback = _csv_name(output_file)
+                if len(df) and not Path(csv_fallback).exists():
+                    df.to_csv(csv_fallback, index=False, encoding="utf-8-sig")
+            except Exception:
+                pass
 
     except json.JSONDecodeError:
         st.error("❌ Le fichier de résultats est vide ou invalide. Lance un scraping.")
@@ -328,21 +379,12 @@ with tab_results:
                             except Exception:
                                 st.text(img)
 
-        st.markdown("## 💾 Exporter les données")
-        coldl1, coldl2 = st.columns(2)
-
-        with coldl1:
-            st.download_button(
-                label="📥 Récupérer le fichier",
-                data=json.dumps(data, indent=2, ensure_ascii=False),
-                file_name=f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.json",
-                mime="application/json",
-            )
+        # (Section d'export retirée de l'onglet : déplacée dans la sidebar)
 
     else:
         st.info("# ℹ️ Il n'y a pas de résultat. Tu peux lancer le scraper.")
 
-# 3ème onglet : Les graphiques
+# 3ème onglet Les graphiques
 with tab_plots:
     st.subheader("📈 Les pages scrapées")
 
@@ -418,5 +460,57 @@ with tab_ethics:
 
     st.markdown("___")
     st.markdown(
-        "🐱 **FelisCrawler** | Scrapy et Streamlit — C'est un projet pédagogique. Il n'est pas destiné à une exploitation massive."
+        "🐱 **FelisCrawler** | _Scrapy et Streamlit_ — C'est un projet pédagogique. Il n'est pas destiné à une exploitation massive."
     )
+
+# Récupérer les données
+st.sidebar.markdown(" ")
+st.sidebar.markdown("___")
+st.sidebar.markdown(" ")
+st.sidebar.markdown(" ")
+st.sidebar.markdown("### 💾 Exporter")
+
+if data is not None or (df is not None and not df.empty):
+    _json_bytes = (json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8") if data is not None else b"")
+    _json_name  = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.json"
+
+    clicked_json = st.sidebar.download_button(
+        label="📥 Récupérer le ficier JSON",
+        data=_json_bytes,
+        file_name=_json_name,
+        mime="application/json",
+        disabled=not (data is not None),
+        key="dl_json_btn"
+    )
+
+    _csv_name_now = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.csv"
+    _csv_bytes    = (df.to_csv(index=False, encoding="utf-8-sig") if df is not None else "").encode("utf-8-sig") if df is not None else b""
+
+    clicked_csv = st.sidebar.download_button(
+        label="📥 Récupérer le fichier CSV",
+        data=_csv_bytes,
+        file_name=_csv_name_now,
+        mime="text/csv",
+        disabled=not (df is not None and not df.empty),
+        key="dl_csv_btn"
+    )
+
+    if clicked_json:
+        _open_download_modal(
+            file_name=_json_name,
+            kind="json",
+            server_hint="Généré en mémoire. Il n'y a rien côté serveur."
+        )
+        st.rerun()
+
+    if clicked_csv:
+        possible_server_csv = Path(_csv_name(output_file))
+        server_hint = str(possible_server_csv.resolve()) if possible_server_csv.exists() else "Généré en mémoire. Il n'y a rien côté serveur."
+        _open_download_modal(
+            file_name=_csv_name_now,
+            kind="csv",
+            server_hint=server_hint
+        )
+        st.rerun()
+else:
+    st.sidebar.info("Aucun résultat à exporter pour l’instant.")
