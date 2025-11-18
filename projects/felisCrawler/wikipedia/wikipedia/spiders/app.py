@@ -119,8 +119,8 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
         "-s", f"CONCURRENT_REQUESTS={concurrent_requests}",
     ]
 
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### ⏱️ Progression...")
+    st.sidebar.markdown("___")
+    st.sidebar.markdown("## ⏱️ Progression...")
 
     pages_metric = st.sidebar.empty()
     pages_metric.metric("Pages scrapées", 0)
@@ -249,7 +249,7 @@ with tab_config:
     if st.session_state.get("scraping", False):
         st.info("# 🟠 Patience, je scrape... Consulte la sidebar pour suivre la progression.")
     elif df is not None:
-        st.success(f"✅ Données chargées depuis 👉 `{output_file}`")
+        st.success(f"### ✅ Les données sont chargées depuis 👉 `{output_file}`")
     else:
         st.info("# ℹ️ Il n'y a pas de résultat. Lance le scraper.")
 
@@ -287,8 +287,8 @@ with tab_results:
         with colf1:
             depth_filter = st.multiselect(
                 "Profondeur",
-                options=sorted(df["Profondeur"].unique()),
-                default=sorted(df["Profondeur"].unique()),
+                options = sorted(df["Profondeur"].unique()),
+                default = sorted(df["Profondeur"].unique()),
             )
 
         with colf2:
@@ -297,19 +297,19 @@ with tab_results:
         with colf3:
             min_len = st.number_input(
                 "Longueur minimale du contenu",
-                min_value=0,
-                max_value=int(df["Longueur"].max()),
-                value=0,
-                step=100,
+                min_value = 0,
+                max_value = int(df["Longueur"].max()),
+                value     = 0,
+                step      = 100,
             )
 
         with colf4:
             min_imgs = st.number_input(
                 "Nombre minimal d'images",
-                min_value=0,
-                max_value=int(df["Images"].max()),
-                value=0,
-                step=1,
+                min_value = 0,
+                max_value = int(df["Images"].max()),
+                value     = 0,
+                step      = 1,
             )
 
         # Application des filtres
@@ -325,8 +325,8 @@ with tab_results:
         st.markdown("### 📄 **Tableau des pages scrapées**")
         st.dataframe(
             filtered_df,
-            use_container_width=True,
-            hide_index=True,
+            use_container_width = True,
+            hide_index          = True,
         )
 
         st.markdown("### 🔍 **Les détails de page**")
@@ -474,42 +474,42 @@ if data is not None or (df is not None and not df.empty):
     _json_bytes = (json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8") if data is not None else b"")
     _json_name  = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.json"
 
-    clicked_json = st.sidebar.download_button(
-        label="📥 Récupérer le ficier JSON",
-        data=_json_bytes,
-        file_name=_json_name,
-        mime="application/json",
-        disabled=not (data is not None),
-        key="dl_json_btn"
+    clicked_json  = st.sidebar.download_button(
+        label     = "📥 Récupérer le ficier JSON",
+        data      = _json_bytes,
+        file_name = _json_name,
+        mime      = "application/json",
+        disabled  = not (data is not None),
+        key       = "dl_json_btn"
     )
 
     _csv_name_now = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.csv"
     _csv_bytes    = (df.to_csv(index=False, encoding="utf-8-sig") if df is not None else "").encode("utf-8-sig") if df is not None else b""
 
-    clicked_csv = st.sidebar.download_button(
-        label="📥 Récupérer le fichier CSV",
-        data=_csv_bytes,
-        file_name=_csv_name_now,
-        mime="text/csv",
-        disabled=not (df is not None and not df.empty),
-        key="dl_csv_btn"
+    clicked_csv   = st.sidebar.download_button(
+        label     = "📥 Récupérer le fichier CSV",
+        data      = _csv_bytes,
+        file_name = _csv_name_now,
+        mime      = "text/csv",
+        disabled  = not (df is not None and not df.empty),
+        key       = "dl_csv_btn"
     )
 
     if clicked_json:
         _open_download_modal(
-            file_name=_json_name,
-            kind="json",
-            server_hint="Généré en mémoire. Il n'y a rien côté serveur."
+            file_name   = _json_name,
+            kind        = "json",
+            server_hint = "Généré en mémoire. Il n'y a rien côté serveur."
         )
         st.rerun()
 
     if clicked_csv:
         possible_server_csv = Path(_csv_name(output_file))
-        server_hint = str(possible_server_csv.resolve()) if possible_server_csv.exists() else "Généré en mémoire. Il n'y a rien côté serveur."
+        server_hint         = str(possible_server_csv.resolve()) if possible_server_csv.exists() else "Généré en mémoire. Il n'y a rien côté serveur."
         _open_download_modal(
-            file_name=_csv_name_now,
-            kind="csv",
-            server_hint=server_hint
+            file_name   = _csv_name_now,
+            kind        = "csv",
+            server_hint = server_hint
         )
         st.rerun()
 else:

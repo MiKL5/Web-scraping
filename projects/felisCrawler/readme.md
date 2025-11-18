@@ -1,4 +1,4 @@
-# **FelisCrawler**<img align="right" src="../../assets/atomicWebScraping.png" alt="Web scraping" height="64px">
+# **FelisCrawler**<a href="../../"><img align="right" src="../../assets/atomicWebScraping.png" alt="Web scraping" height="64px"></a>
 <div align="center">
 
 ![Python](https://img.shields.io/badge/python-3.13-blue?style=flat&logo=python&logoColor=FFD43B) 
@@ -39,7 +39,7 @@ scraper tous les articles Wikipédia (en français) liés aux chats et félins. 
 **Un CrawlSpider scrutant fr.wikipedia.org/wiki/Chat, en suivant des règles d’exploration**
 * Suivre des URL pertinentes
 * Exclure les espaces non encyclopédiques
-* Extractraire à chaque page : le titre, l'introduction, le nombre paragraphes, la longueur texte, les liens internes, les images filtrées et la profondeur.
+* Extraire à chaque page : le titre, l'introduction, le nombre paragraphes, la longueur texte, les liens internes, les images filtrées et la profondeur.
 
 **L'application Streamlit permet**
 * La configuration intuitive par la sidebar
@@ -48,8 +48,8 @@ scraper tous les articles Wikipédia (en français) liés aux chats et félins. 
 * Les statistiques et graphiques
 * Une rubrique sur l’éthique, l’environnement, le droit et la gouvernance du scraping.
 
-## **L'utiliser**
-Il faut Python 3.9 ou plus récent. Scrapy, Streamlit et Pandas.
+## **Pour l'utiliser**
+Il faut Python 3.9 ou ultérieur. Scrapy, Streamlit et Pandas.
 ### **Pour installer les dépendances**
 ```sh
 pip install scrapy streamlit pandas
@@ -58,7 +58,7 @@ Démarrage de l’application :
 ```sh
 streamlit run app.py
 ```
-### **Depuis l’interface ouverte dans un navigateur**, vous pouvez
+### **Depuis l’interface dans un navigateur**, vous pouvez
 * Paramétrer les options de scraping dans la barre latérale
 * Lancer le scraping
 * Explorer les données collectées dans les onglets
@@ -69,7 +69,7 @@ streamlit run app.py
 * Extraction robuste des titres, introduction et paragraphes
 * Limitation intelligente des liens internes et images extraites pour éviter les débordements
 * Compatible avec tous les formats d’export supportés (FEEDS Scrapy)
-## Visualiser et analyser
+## **Visualiser et analyser**
 Il y a un tableau filtrable pour sélectionner les pages par profondeur, nombre d’images, longueur, titre. Les détails de chaque page.  
 Des graphiques concernant
 * La répartition des pages par profondeur de crawl
@@ -79,8 +79,7 @@ Des graphiques concernant
 Le scraping limité à un usage expérimental et pédagogique. Il respecte explicitement les règles Wikipédia (licence CC BY-SA, attribution requise). Il n'y a pas de collecte de données personnelles dans le périmètre du projet. 
 Le respect de l’environnement est possible par la modulation des paramètres pour minimiser l’impact carbone et éviter de surcharger le serveur.
 
-![screenshot](assets/screenshot.png)
-
+![screenshot](assets/screenshot.png
 ![screenshot1](assets/screenshot1.png)
 ## **Références et documentation**
 [Scrapy — Spiders](https://docs.scrapy.org/en/latest/topics/spiders.html)  
