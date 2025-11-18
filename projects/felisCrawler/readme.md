@@ -85,7 +85,7 @@ Le respect de l’environnement est possible par la modulation des paramètres p
 [Documentation de Streamlit](https://docs.streamlit.io/)  
 [Licences et conditions d’utilisation de Wikipédia](https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Droit_d%27auteur)  
 [Récapitulatif du RGPD](https://www.cnil.fr/fr/rgpd-par-ou-commencer)
-___
-"**_FelisCrawler_**" est conçu pour illustrer l’intégration de technologies de scraping et d’interface utilisateur dans un contexte pédagogique et gouverné.
 
 ![screenshot](assets/screenshot.png)
+___
+"**_FelisCrawler_**" est conçu pour illustrer l’intégration de technologies de scraping et d’interface utilisateur dans un contexte pédagogique et gouverné.

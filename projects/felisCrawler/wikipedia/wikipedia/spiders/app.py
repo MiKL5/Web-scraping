@@ -6,6 +6,7 @@ import json
 import csv
 import subprocess
 
+
 # Configurer la page
 st.set_page_config(
     page_title="FelisCrawler",
@@ -15,10 +16,6 @@ st.set_page_config(
 
 st.title("🐱 FelisCrawler 🐈")
 st.markdown("")
-# st.markdown(
-#     "Parce que nous aimons les chats. 😻 "
-#     "Interface pédagogique pour scraper **uniquement** les articles Wikipédia # liés aux chats."
-# )
 
 # Initialiser la session
 if "scraping" not in st.session_state:
@@ -50,7 +47,7 @@ concurrent_requests = st.sidebar.slider(
     "Combien de requêtes simultanées ?",
     min_value       =  1,
     max_value       = 16,
-    value           =  8,
+    value           =  4,
     help            = "Plus il y a de requêtes en parallèle, plus le serveur est chargé."
 )
 
@@ -75,8 +72,8 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
     st.session_state["start_time"] = time.time()
 
     cmd = [
-        "scrapy", "runspider", "wikichat_spider.py",
-        "-o", output_file,
+        "scrapy" , "runspider" , "wikichat_spider.py",
+        "-O", output_file,
         "-s", f"DEPTH_LIMIT={depth_limit}",
         "-s", f"DOWNLOAD_DELAY={download_delay}",
         "-s", f"CONCURRENT_REQUESTS={concurrent_requests}",
@@ -196,7 +193,7 @@ with tab_config:
     elif df is not None:
         st.success(f"✅ Données chargées depuis 👉 `{output_file}`")
     else:
-        st.info("ℹ️ Il n'y a pas de résultat. Lance le scraper.")
+        st.info("# ℹ️ Il n'y a pas de résultat. Lance le scraper.")
 
     if st.session_state.get("last_output"):
         st.markdown(
@@ -362,7 +359,7 @@ with tab_plots:
             "Ces graphiques permettent de repérer rapidement les pages longues, riches en images ou particulièrement denses en texte."
         )
     else:
-        st.info("ℹ️ N'ayant pas de résultat, il n'y a pas de graphique.")
+        st.info("# ℹ️ N'ayant pas de résultat, il n'y a pas de graphique.")
 
 # 4ème onglet L'éthique & infos
 with tab_ethics:
