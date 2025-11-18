@@ -46,7 +46,7 @@ download_delay = st.sidebar.number_input(
 concurrent_requests = st.sidebar.slider(
     "Combien de requêtes simultanées ?",
     min_value       =  1,
-    max_value       = 16,
+    max_value       = 12,
     value           =  4,
     help            = "Plus il y a de requêtes en parallèle, plus le serveur est chargé."
 )
@@ -91,6 +91,13 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
 
         pages_count    = 0
         progress       = 0
+
+        try:
+            p = Path(output_file)
+            if p.exists():
+                p.unlink()
+        except Exception as _:
+            pass
 
         try:
             process     = subprocess.Popen(
@@ -189,7 +196,7 @@ with tab_config:
         st.code(str(output_file))
 
     if st.session_state.get("scraping", False):
-        st.info("🟠 Patience, je scrape... Consulte la sidebar pour suivre la progression.")
+        st.info("# 🟠 Patience, je scrape... Consulte la sidebar pour suivre la progression.")
     elif df is not None:
         st.success(f"✅ Données chargées depuis 👉 `{output_file}`")
     else:

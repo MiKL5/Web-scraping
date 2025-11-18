@@ -78,6 +78,8 @@ Des graphiques concerant
 ## **Éthique, gouvernance et bonnes pratiques**
 Le scraping limité à un usage expérimental et pédagogique. Il respect explicitement les règles Wikipédia (licence CC BY-SA, attribution requise). Il n'y a pas de collecte de données personnelles dans le périmètre du projet. 
 Le respect de l’environnement est possible par la modulation des paramètres pour minimiser l’impact carbone et éviter de surcharger le serveur.
+
+![screenshot](assets/screenshot.png)
 ## **Références et documentation**
 [Scrapy — Spiders](https://docs.scrapy.org/en/latest/topics/spiders.html)  
 [Scrapy — Sélecteurs XPath](https://docs.scrapy.org/en/latest/topics/selectors.html)  
@@ -85,7 +87,5 @@ Le respect de l’environnement est possible par la modulation des paramètres p
 [Documentation de Streamlit](https://docs.streamlit.io/)  
 [Licences et conditions d’utilisation de Wikipédia](https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Droit_d%27auteur)  
 [Récapitulatif du RGPD](https://www.cnil.fr/fr/rgpd-par-ou-commencer)
-
-![screenshot](assets/screenshot.png)
 ___
 "**_FelisCrawler_**" est conçu pour illustrer l’intégration de technologies de scraping et d’interface utilisateur dans un contexte pédagogique et gouverné.
