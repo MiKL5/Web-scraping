@@ -111,7 +111,7 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
     output_file_csv = _csv_name(output_file)
 
     cmd = [
-        "scrapy" , "runspider" , "wikichat_spider.py",
+        "scrapy" , "runspider" , "wikipedia/spiders/feliscrawler_spider.py",
         "-O", output_file,
         "-O", output_file_csv,  # sortie CSV en parallèle
         "-s", f"DEPTH_LIMIT={depth_limit}",

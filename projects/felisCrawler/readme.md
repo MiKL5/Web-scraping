@@ -5,13 +5,13 @@
 ![Scrapy](https://img.shields.io/badge/Scrapy-Web_Scraping-5E8862?style=flat&logo=scrapy&logoColor=white) 
 ![Streamlit](https://img.shields.io/badge/Streamlit-UI_Interactive-FF4B4B?style=flat&logo=streamlit&logoColor=white) 
 ![Pandas](https://img.shields.io/badge/pandas-Data_Processing-150458?style=flat&logo=pandas&logoColor=white) 
-![JSON](https://img.shields.io/badge/JSON-Export-000000?style=flat&logo=json&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-Export-000000?style=flat&logo=json&logoColor=white) 
+![csv](https://img.shields.io/badge/CSV-Export-000000?style=flat)
 
 </div>
 
-
-"**_FelisCrawler_**" est une plateforme interactive et éthique. Elle permet de
-scraper tous les articles Wikipédia (en français) liés aux chats et félins. Visualiser et analyser interactivement le contenu structuré issu du scraping. Et de piloter le scraping et exporter les données simplement.
+"**_FelisCrawler_**" est une application de scraping. Elle permet de
+scraper tous les articles Wikipédia (en français) liés aux chats. Visualiser et analyser interactivement le contenu structuré issu du scraping. Et de piloter le scraping et exporter les données simplement.
 ---
 ## **Les principaux composants du projet sont**
 * Un spider Scrapy avancé multi règles, conçu pour explorer en profondeur les liens encyclopédiques autour des chats sur Wikipédia.
@@ -58,6 +58,22 @@ Démarrage de l’application :
 ```sh
 streamlit run app.py
 ```
+### **Tester et Valider**
+Pour garantir la pérennité du scraper face aux évolutions de Wikipédia, une **suite de tests complète** est incluse. Elle couvre plusieurs aspects critiques :
+
+#### **Types de tests**
+* **Tests d'intégrité** (`test_integrity.py`) : Vérifient que le spider extrait tous les champs attendus avec les bons types de données (titre, paragraphes, images, liens)
+* **Tests de structure** (`test_structure.py`) : Effectuent un crawl en direct sur Wikipédia pour détecter si la structure HTML a changé (sélecteurs cassés)
+* **Tests de cas limites** (`test_edge_cases.py`) : Simulent des pages problématiques (titre manquant, contenu vide, etc.)
+* **Tests de navigation** (`test_navigation.py`) : Valident que les règles de filtrage des liens fonctionnent correctement
+* **Tests end-to-end** (`test_e2e.py`) : Lancent le spider en tant que sous-processus et vérifient la génération du fichier JSON
+
+#### **Lancer les tests**
+```sh
+python run_tests.py
+```
+
+Tous les tests utilisent **`pathlib`** (au lieu de `os`) pour une gestion moderne des chemins, et tous les commentaires sont en français pour une cohérence maximale.
 ### **Depuis l’interface dans un navigateur**, vous pouvez
 * Paramétrer les options de scraping dans la barre latérale
 * Lancer le scraping

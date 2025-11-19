@@ -2,7 +2,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders        import CrawlSpider, Rule
 
 
-class WikiChatSpider(CrawlSpider):
+class feliscrawlerSpider(CrawlSpider):
     name            = 'wiki_chat'
     allowed_domains = ['fr.wikipedia.org']
     start_urls      = ['https://fr.wikipedia.org/wiki/Chat']
@@ -14,7 +14,7 @@ class WikiChatSpider(CrawlSpider):
         'RANDOMIZE_DOWNLOAD_DELAY': True,
         'CONCURRENT_REQUESTS':      8,
         'ROBOTSTXT_OBEY':           True,
-        'USER_AGENT':              'Mozilla/5.0 (compatible; WikiChatBot/1.0)',
+        'USER_AGENT':              'Mozilla/5.0 (compatible; feliscrawlerBot/1.0)',
         'FEEDS': {
             'result.json': {
                 'format':   'json',
@@ -28,7 +28,7 @@ class WikiChatSpider(CrawlSpider):
     rules = (
         Rule(
             LinkExtractor(
-                allow = r'/wiki/(Chat|F[ée]lin|Race_de_chat|Domestication_du_chat)',
+                allow = r'/wiki/(Chat|F[ée]lin|F%C3%A9lin|Race_de_chat|Domestication_du_chat)',
                 deny  = (
                     r'/wiki/Fichier:',
                     r'/wiki/Sp%C3%A9cial:',
@@ -45,6 +45,9 @@ class WikiChatSpider(CrawlSpider):
         ),
     )
     
+    def parse_start_url(self, response):
+        return self.parse_page(response)
+
     def parse_page(self, response):        
         title = response.xpath('//h1[@class="firstHeading"]/text()').get()
         title = (
