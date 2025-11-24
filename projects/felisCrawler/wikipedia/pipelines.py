@@ -1,13 +1,16 @@
-# Define your item pipelines here
+# Définir vos pipelines d'items ici
 #
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# Ajouter le pipeline au paramètre ITEM_PIPELINES
+# Voir : https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-# useful for handling different item types with a single interface
+# Utile pour gérer différentes classes d'items
 from itemadapter import ItemAdapter
+from typing import Any
+
+from scrapy import Spider
 
 
 class WikipediaPipeline:
-    def process_item(self, item, spider):
+    def process_item(self, item: Any, spider: Spider) -> Any:
         return item

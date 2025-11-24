@@ -1,18 +1,14 @@
-import streamlit as     st
-import pandas    as     pd
-from   pathlib   import Path
-import time
 import json
-import csv
 import subprocess
+import time
+from   pathlib   import Path
+from   typing    import Any, Optional
+import pandas    as pd
+import streamlit as st
 
 
 # Configurer la page
-st.set_page_config(
-    page_title="FelisCrawler",
-    page_icon="🐱",
-    layout="wide"
-)
+st.set_page_config(page_title="FelisCrawler", page_icon="🐱", layout="wide")
 
 st.title("🐱 **FelisCrawler** 🐈")
 st.markdown("")
@@ -29,94 +25,99 @@ if "show_download_modal" not in st.session_state:
 if "download_info" not in st.session_state:
     st.session_state["download_info"] = {}
 
-# Utilitaire pour nommer le CSV à partir du JSON
-def _csv_name(json_name: str) -> str:
-    try:
-        p = Path(json_name)
-        return str(p.with_suffix(".csv"))
-    except Exception:
-        return (json_name.rsplit(".", 1)[0] if "." in json_name else json_name) + ".csv"
+
+from utils import csv_name
+
 
 # Ouvre la modale de confirmation
-def _open_download_modal(file_name: str, kind: str, server_hint: str | None = None):
+def _open_download_modal(file_name: str, kind: str, server_hint: Optional[str] = None) -> None:
     st.session_state["download_info"] = {
         "kind": kind,
         "file_name": file_name,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg" if kind == "csv"
-                else "https://upload.wikimedia.org/wikipedia/commons/c/c9/JSON_vector_logo.svg",
-        "server_hint": server_hint or ""
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg"
+        if kind == "csv"
+        else "https://upload.wikimedia.org/wikipedia/commons/c/c9/JSON_vector_logo.svg",
+        "server_hint": server_hint or "",
     }
     st.session_state["show_download_modal"] = True
 
+
 # Sidebar des paramètres
 st.sidebar.title("⚙️ Configurer le scraper")
-st.sidebar.header(" ") # espacement
-st.sidebar.header(" ") # espacement
+st.sidebar.header(" ")  # espacement
+st.sidebar.header(" ")  # espacement
 
 depth_limit = st.sidebar.slider(
     "Quelle est la profondeur de crawl ?",
-    min_value= 1,
-    max_value= 5,
-    value    = 4,
-    help     = "C'est le nombre de niveaux de liens à suivre. Plus c'est élevé, plus ça consomme de ressources."
+    min_value = 1,
+    max_value = 5,
+    value     = 4,
+    help      = "C'est le nombre de niveaux de liens à suivre. Plus c'est élevé, plus ça consomme de ressources.",
 )
 
-st.sidebar.header(" ") # espacement
+st.sidebar.header(" ")  # espacement
 
 download_delay = st.sidebar.number_input(
     "Combien de secondes entre les requêtes ?",
-    min_value  =   .5,
-    max_value  = 10.0,
-    value      =  1.23,
-    step       =   .1,
-    help       = "Temps d'attente entre chaque requête HTTP. Il est recommandé d'être ≥ 1 s pour respecter les serveurs."
+    min_value = 0.5,
+    max_value = 10.0,
+    value     = 1.23,
+    step      = 0.1,
+    help      = "Temps d'attente entre chaque requête HTTP. Il est recommandé d'être ≥ 1 s pour respecter les serveurs.",
 )
 
-st.sidebar.header(" ") # espacement
+st.sidebar.header(" ")  # espacement
 
 concurrent_requests = st.sidebar.slider(
     "Combien de requêtes simultanées ?",
-    min_value       =  1,
-    max_value       = 12,
-    value           =  4,
-    help            = "Plus il y a de requêtes en parallèle, plus le serveur est chargé."
+    min_value = 1,
+    max_value = 12,
+    value     = 4,
+    help      = "Plus il y a de requêtes en parallèle, plus le serveur est chargé.",
 )
 
-st.sidebar.header(" ") # espacement
+st.sidebar.header(" ")  # espacement
 
 output_file = st.sidebar.text_input(
     "Le nom du fichier (JSON) est",
-    value   = "result.json",
-    help    = "Nom du fichier JSON où sauvegarder les résultats du scraping."
+    value = "result.json",
+    help  = "Nom du fichier JSON où sauvegarder les résultats du scraping.",
 )
-st.sidebar.header(" ") # espacement
+st.sidebar.header(" ")  # espacement
 
 st.sidebar.markdown("___")
-st.sidebar.markdown(" ") # Espacement
-st.sidebar.markdown(" ") # Espacement
+st.sidebar.markdown(" ")  # Espacement
+st.sidebar.markdown(" ")  # Espacement
 st.sidebar.markdown("### 🌱 Les recommandations sont")
 st.sidebar.markdown(
     "* La profondeur de **_2 à 4_**\n"
     "* Le délai doit être **_≥ 1 s_**\n"
     "* Et **_≤ 8_** requêtes simultanées\n"
 )
-st.sidebar.markdown(" ") # Espacement
-st.sidebar.markdown(" ") # Espacement
-st.sidebar.markdown(" ") # Espacement
+st.sidebar.markdown(" ")  # Espacement
+st.sidebar.markdown(" ")  # Espacement
+st.sidebar.markdown(" ")  # Espacement
 # Bouton pour crawler
 if st.sidebar.button("🚀 Je scrape !", type="primary"):
-    st.session_state["scraping"]   = True
+    st.session_state["scraping"] = True
     st.session_state["start_time"] = time.time()
 
-    output_file_csv = _csv_name(output_file)
+    output_file_csv = csv_name(output_file)
 
     cmd = [
-        "scrapy" , "runspider" , "wikipedia/spiders/feliscrawler_spider.py",
-        "-O", output_file,
-        "-O", output_file_csv,  # sortie CSV en parallèle
-        "-s", f"DEPTH_LIMIT={depth_limit}",
-        "-s", f"DOWNLOAD_DELAY={download_delay}",
-        "-s", f"CONCURRENT_REQUESTS={concurrent_requests}",
+        "scrapy",
+        "runspider",
+        "wikipedia/spiders/feliscrawler_spider.py",
+        "-O",
+        output_file,
+        "-O",
+        output_file_csv,  # sortie CSV en parallèle
+        "-s",
+        f"DEPTH_LIMIT={depth_limit}",
+        "-s",
+        f"DOWNLOAD_DELAY={download_delay}",
+        "-s",
+        f"CONCURRENT_REQUESTS={concurrent_requests}",
     ]
 
     st.sidebar.markdown("___")
@@ -126,11 +127,11 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
     pages_metric.metric("Pages scrapées", 0)
 
     with st.spinner("🔄 Patience... je scrape..."):
-        progress_bar   = st.progress(0)
-        status_text    = st.empty()
+        progress_bar = st.progress(0)
+        status_text  = st.empty()
 
-        pages_count    = 0
-        progress       = 0
+        pages_count = 0
+        progress    = 0
 
         try:
             p_json = Path(output_file)
@@ -143,17 +144,19 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
             pass
 
         try:
-            process     = subprocess.Popen(
+            process = subprocess.Popen(
                 cmd,
                 stdout  = subprocess.PIPE,
                 stderr  = subprocess.STDOUT,
                 text    = True,
-                bufsize = 1
+                bufsize = 1,
             )
 
-            log_output  = []
+            log_output = []
 
-            for line in process.stdout:
+            # Mypy fix: process.stdout is Optional
+            iterator: Any = process.stdout if process.stdout else []
+            for line in iterator:
                 line = line.strip()
                 if not line:
                     continue
@@ -175,7 +178,7 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
             if process.returncode == 0:
                 progress_bar.progress(100)
                 st.success("✅ Le scraping est terminé.")
-                st.session_state["scraping"]    = False
+                st.session_state["scraping"] = False
                 st.session_state["last_output"] = output_file
                 time.sleep(0.5)
                 st.rerun()
@@ -191,31 +194,33 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
 
 # Charger les données
 output_path = Path(output_file)
-data        = None
-df          = None
+data = None
+df = None
 
 if output_path.exists():
     try:
         raw_text = output_path.read_text(encoding="utf-8")
-        data     = json.loads(raw_text)
+        data = json.loads(raw_text)
 
         if data:
             df_data = []
             for item in data:
-                df_data.append({
-                    "Titre"      : item.get("titre", "N/A"),
-                    "Profondeur" : item.get("profondeur", 0),
-                    "Paragraphes": item.get("nombre_paragraphes", 0),
-                    "Images"     : item.get("nombre_images", 0),
-                    "Longueur"   : item.get("longueur_contenu", 0),
-                    "L'adresse"  : item.get("url", ""),
-                })
+                df_data.append(
+                    {
+                        "Titre"      : item.get("titre", "N/A"),
+                        "Profondeur" : item.get("profondeur", 0),
+                        "Paragraphes": item.get("nombre_paragraphes", 0),
+                        "Images"     : item.get("nombre_images", 0),
+                        "Longueur"   : item.get("longueur_contenu", 0),
+                        "L'adresse"  : item.get("url", ""),
+                    }
+                )
 
             df = pd.DataFrame(df_data)
 
             # fallback : garantir un CSV si Scrapy ne l'a pas écrit
             try:
-                csv_fallback = _csv_name(output_file)
+                csv_fallback = csv_name(output_file)
                 if len(df) and not Path(csv_fallback).exists():
                     df.to_csv(csv_fallback, index=False, encoding="utf-8-sig")
             except Exception:
@@ -228,7 +233,12 @@ if output_path.exists():
 
 # Les onglets principaux
 tab_config, tab_results, tab_plots, tab_ethics = st.tabs(
-    ["⚙️ La config. et l'état", "📊 Les résultats", "📈 Les graphiques", "⚖️ Éthique & infos"]
+    [
+        "⚙️ La config. et l'état",
+        "📊 Les résultats",
+        "📈 Les graphiques",
+        "⚖️ Éthique & infos",
+    ]
 )
 
 # 1er Onglet : La configuration
@@ -237,17 +247,19 @@ with tab_config:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric(f"Profondeur", depth_limit)
+        st.metric("Profondeur", depth_limit)
     with col2:
-        st.metric(f"Délai", download_delay)
+        st.metric("Délai", download_delay)
     with col3:
-        st.metric(f"Requêtes simultanées", concurrent_requests)
+        st.metric("Requêtes simultanées", concurrent_requests)
     with col4:
         st.write("**Le fichier de sortie est**")
         st.code(str(output_file))
 
     if st.session_state.get("scraping", False):
-        st.info("# 🟠 Patience, je scrape... Consulte la sidebar pour suivre la progression.")
+        st.info(
+            "# 🟠 Patience, je scrape... Consulte la sidebar pour suivre la progression."
+        )
     elif df is not None:
         st.success(f"### ✅ Les données sont chargées depuis 👉 `{output_file}`")
     else:
@@ -315,26 +327,26 @@ with tab_results:
         # Application des filtres
         filtered_df = df[df["Profondeur"].isin(depth_filter)]
         filtered_df = filtered_df[filtered_df["Longueur"] >= min_len]
-        filtered_df = filtered_df[filtered_df["Images"] >= min_imgs]
+        filtered_df = filtered_df[filtered_df["Images"]   >= min_imgs]
 
         if search_term:
             filtered_df = filtered_df[
                 filtered_df["Titre"].str.contains(search_term, case=False, na=False)
             ]
-
-        st.markdown("### 📄 **Tableau des pages scrapées**")
+        
         st.dataframe(
             filtered_df,
-            use_container_width = True,
-            hide_index          = True,
+            use_container_width=True,
+            column_config = {
+                "L'adresse": st.column_config.LinkColumn("L'adresse"),
+            },
+            hide_index    = True,
         )
 
         st.markdown("### 🔍 **Les détails de page**")
 
         titles = [item.get("titre") for item in data if item.get("titre")]
-        selected_title = st.selectbox(
-            "Choisis une page", options=titles
-        )
+        selected_title = st.selectbox("Choisis une page", options=titles)
 
         if selected_title:
             selected_item = next(
@@ -471,8 +483,12 @@ st.sidebar.markdown(" ")
 st.sidebar.markdown("### 💾 Exporter")
 
 if data is not None or (df is not None and not df.empty):
-    _json_bytes = (json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8") if data is not None else b"")
-    _json_name  = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.json"
+    _json_bytes = (
+        json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
+        if data is not None
+        else b""
+    )
+    _json_name = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.json"
 
     clicked_json  = st.sidebar.download_button(
         label     = "📥 Récupérer le ficier JSON",
@@ -480,36 +496,44 @@ if data is not None or (df is not None and not df.empty):
         file_name = _json_name,
         mime      = "application/json",
         disabled  = not (data is not None),
-        key       = "dl_json_btn"
+        key       = "dl_json_btn",
     )
 
-    _csv_name_now = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.csv"
-    _csv_bytes    = (df.to_csv(index=False, encoding="utf-8-sig") if df is not None else "").encode("utf-8-sig") if df is not None else b""
+    csv_name_now = f"scraping_{time.strftime('%Y%m%d_%H%M%S')}.csv"
+    _csv_bytes   = (
+        (df.to_csv(index=False, encoding="utf-8-sig") if df is not None else "").encode(
+            "utf-8-sig"
+        )
+        if df is not None
+        else b""
+    )
 
     clicked_csv   = st.sidebar.download_button(
         label     = "📥 Récupérer le fichier CSV",
         data      = _csv_bytes,
-        file_name = _csv_name_now,
+        file_name = csv_name_now,
         mime      = "text/csv",
         disabled  = not (df is not None and not df.empty),
-        key       = "dl_csv_btn"
+        key       = "dl_csv_btn",
     )
 
     if clicked_json:
         _open_download_modal(
             file_name   = _json_name,
             kind        = "json",
-            server_hint = "Généré en mémoire. Il n'y a rien côté serveur."
+            server_hint = "Généré en mémoire. Il n'y a rien côté serveur.",
         )
         st.rerun()
 
     if clicked_csv:
-        possible_server_csv = Path(_csv_name(output_file))
-        server_hint         = str(possible_server_csv.resolve()) if possible_server_csv.exists() else "Généré en mémoire. Il n'y a rien côté serveur."
+        possible_server_csv = Path(csv_name(output_file))
+        server_hint = (
+            str(possible_server_csv.resolve())
+            if possible_server_csv.exists()
+            else "Généré en mémoire. Il n'y a rien côté serveur."
+        )
         _open_download_modal(
-            file_name   = _csv_name_now,
-            kind        = "csv",
-            server_hint = server_hint
+            file_name = csv_name_now, kind = "csv", server_hint = server_hint
         )
         st.rerun()
 else:

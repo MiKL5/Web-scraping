@@ -2,6 +2,9 @@ streamlit>=1.18.0
 pandas
 scrapy
 pytest
-black
-flake8
+pytest-cov
+ruff
+mypy
+types-requests
+types-ujson
 python-dotenv

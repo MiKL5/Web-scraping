@@ -40,40 +40,22 @@ scraper tous les articles Wikipédia (en français) liés aux chats. Visualiser 
 * Suivre des URL pertinentes
 * Exclure les espaces non encyclopédiques
 * Extraire à chaque page : le titre, l'introduction, le nombre paragraphes, la longueur texte, les liens internes, les images filtrées et la profondeur.
-
-**L'application Streamlit permet**
+**L'application permet**
 * La configuration intuitive par la sidebar
 * Le lancement du scraping en un clic (génère un sous-processus Scrapy configurable)
 * La visualisation, le filtrage et l'export interactifs des résultats
 * Les statistiques et graphiques
 * Une rubrique sur l’éthique, l’environnement, le droit et la gouvernance du scraping.
-
 ## **Pour l'utiliser**
 Il faut Python 3.9 ou ultérieur. Scrapy, Streamlit et Pandas.
-### **Pour installer les dépendances**
-```sh
-pip install scrapy streamlit pandas
+### **Installer les dépendances**
+```bash
+pip install -r requirements.txt
 ```
-Démarrage de l’application :
+### **Démarer l'appli**
 ```sh
 streamlit run app.py
 ```
-### **Tester et Valider**
-Pour garantir la pérennité du scraper face aux évolutions de Wikipédia, une **suite de tests complète** est incluse. Elle couvre plusieurs aspects critiques :
-
-#### **Types de tests**
-* **Tests d'intégrité** (`test_integrity.py`) : Vérifient que le spider extrait tous les champs attendus avec les bons types de données (titre, paragraphes, images, liens)
-* **Tests de structure** (`test_structure.py`) : Effectuent un crawl en direct sur Wikipédia pour détecter si la structure HTML a changé (sélecteurs cassés)
-* **Tests de cas limites** (`test_edge_cases.py`) : Simulent des pages problématiques (titre manquant, contenu vide, etc.)
-* **Tests de navigation** (`test_navigation.py`) : Valident que les règles de filtrage des liens fonctionnent correctement
-* **Tests end-to-end** (`test_e2e.py`) : Lancent le spider en tant que sous-processus et vérifient la génération du fichier JSON
-
-#### **Lancer les tests**
-```sh
-python run_tests.py
-```
-
-Tous les tests utilisent **`pathlib`** (au lieu de `os`) pour une gestion moderne des chemins, et tous les commentaires sont en français pour une cohérence maximale.
 ### **Depuis l’interface dans un navigateur**, vous pouvez
 * Paramétrer les options de scraping dans la barre latérale
 * Lancer le scraping
@@ -97,6 +79,41 @@ Le respect de l’environnement est possible par la modulation des paramètres p
 
 ![screenshot](assets/screenshot.png)
 ![screenshot1](assets/screenshot1.png)
+
+## **Tester et Valider**
+Pour garantir la pérennité du scraper face aux évolutions de Wikipédia, une **suite de tests complète** est incluse.  
+Elle couvre plusieurs aspects critiques :
+* **Tests d'intégrité** (`test_integrity.py`) 👉 Vérifient que le spider extrait tous les champs attendus avec les bons types de données (titre, paragraphes, images, liens).
+* **Tests de structure** (`test_structure.py`) 👉 Effectuent un crawl en direct sur Wikipédia pour détecter si la structure HTML a changé (sélecteurs cassés).
+* **Tests de cas limites** (`test_edge_cases.py`) 👉 Simulent des pages problématiques (titre manquant, contenu vide, etc.).
+* **Tests de navigation** (`test_navigation.py`) 👉 Valident que les règles de filtrage des liens fonctionnent correctement.
+* **Tests end-to-end** (`test_e2e.py`) 👉 Lancent le spider en tant que sous-processus et vérifient la génération du fichier JSON.
+```sh
+python run_tests.py
+```
+## **Tests et Qualité du Code**
+### **Lancer les tests**
+```bash
+# Tests unitaires avec couverture
+pytest --cov=. --cov-report=term-missing
+
+# Tous les tests (incluant les tests live)
+python run_tests.py --live
+```
+### **Couverture actuelle**
+* **86%** de couverture globale
+* **22 tests** réussis (100% de réussite)
+* Tests unitaires pour tous les composants Scrapy
+* Tests d'interface utilisateur (Streamlit) avec mocking complet
+### **Analyse statique**
+```bash
+# Vérification du style de code
+ruff check .
+
+# Vérification des types
+mypy .
+```
+
 ## **Références et documentation**
 [Scrapy — Spiders](https://docs.scrapy.org/en/latest/topics/spiders.html)  
 [Scrapy — Sélecteurs XPath](https://docs.scrapy.org/en/latest/topics/selectors.html)  

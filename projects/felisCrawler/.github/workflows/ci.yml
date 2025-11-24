@@ -1,0 +1,40 @@
+name: Intégration Continue
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-et-qualite:
+    name: Test et Qualité
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Récupération du code
+      uses: actions/checkout@v4
+
+    - name: Configuration de Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+        cache: 'pip'
+
+    - name: Installation des dépendances
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Lint avec Ruff
+      run: |
+        ruff check .
+        ruff format --check .
+
+    - name: Type Check avec Mypy
+      run: |
+        mypy .
+
+    - name: Exécution des tests
+      run: |
+        python run_tests.py
