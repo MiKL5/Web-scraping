@@ -3,8 +3,8 @@ import subprocess
 import time
 from   pathlib   import Path
 from   typing    import Any, Optional
-import pandas    as pd
-import streamlit as st
+import pandas    as     pd
+import streamlit as     st
 
 
 # Configurer la page
@@ -195,7 +195,7 @@ if st.sidebar.button("🚀 Je scrape !", type="primary"):
 # Charger les données
 output_path = Path(output_file)
 data = None
-df = None
+df   = None
 
 if output_path.exists():
     try:

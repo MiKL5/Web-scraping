@@ -2,7 +2,7 @@ import json
 import subprocess
 import tempfile
 import unittest
-from pathlib import Path
+from   pathlib import Path
 
 
 class TestEndToEnd(unittest.TestCase):

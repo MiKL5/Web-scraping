@@ -1,21 +1,21 @@
 import sys
 import os
 import unittest
-from pathlib import Path
-
+from   pathlib     import Path
 import requests
-from scrapy.http import HtmlResponse, Request
+from   scrapy.http import HtmlResponse, Request
+
 
 # Ajoute la racine du projet au chemin
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from wikipedia.spiders.feliscrawler_spider import FeliscrawlerSpider
+from wikipedia.spiders.feliscrawler_spider import feliscrawlerSpider
 
 
 @unittest.skipUnless(os.environ.get("RUN_LIVE_TESTS"), "Tests live désactivés par défaut (utiliser --live)")
 class TestfeliscrawlerStructure(unittest.TestCase):
     def setUp(self) -> None:
-        self.spider = FeliscrawlerSpider()
+        self.spider = feliscrawlerSpider()
         self.url = "https://fr.wikipedia.org/wiki/Chat"
 
     def test_live_page_structure(self) -> None:

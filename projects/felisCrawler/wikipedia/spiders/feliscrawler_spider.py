@@ -97,7 +97,7 @@ class feliscrawlerSpider(CrawlSpider):
             'url'               : response.url,
             'titre'             : title,
             'profondeur'        : depth,
-            'introduction'      : intro_text[:500] if intro_text else None, # 500 char
+            'introduction'      : intro_text[:500] if intro_text else None, # 500 caractères
             'nombre_paragraphes': len([p for p in paragraphes if p.strip()]),
             'longueur_contenu'  : len(contenu_complet),
             'liens_internes'    : [response.urljoin(link) for link in liens_internes[:20]],  # Limite

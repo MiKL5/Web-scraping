@@ -4,6 +4,7 @@ from   pathlib     import Path
 import sys
 from   scrapy.http import HtmlResponse, Request
 
+
 # Ajoute la racine du projet au chemin
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 

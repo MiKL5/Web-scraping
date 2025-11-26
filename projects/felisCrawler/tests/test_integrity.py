@@ -1,18 +1,18 @@
 import sys
 import unittest
-from pathlib import Path
+from   pathlib import Path
+from   scrapy.http import HtmlResponse, Request
 
-from scrapy.http import HtmlResponse, Request
 
 # Ajoute la racine du projet au chemin pour pouvoir importer le spider
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from wikipedia.spiders.feliscrawler_spider import FeliscrawlerSpider
+from wikipedia.spiders.feliscrawler_spider import feliscrawlerSpider
 
 
 class TestfeliscrawlerSpiderIntegrity(unittest.TestCase):
     def setUp(self) -> None:
-        self.spider = FeliscrawlerSpider()
+        self.spider = feliscrawlerSpider()
 
     def test_parse_page_integrity(self) -> None:
         """
@@ -90,6 +90,42 @@ class TestfeliscrawlerSpiderIntegrity(unittest.TestCase):
         # Dans la simulation : alt='Rien à voir' -> ne doit PAS correspondre
         self.assertEqual(item["nombre_images"], 1)
         self.assertIn("//upload.wikimedia.org/chat.jpg", item["images"][0])
+
+    def test_parse_start_url(self) -> None:
+        """
+        Teste que parse_start_url appelle correctement parse_page.
+        Cette méthode est utilisée par Scrapy pour traiter l'URL de départ.
+        """
+        html_content = """
+        <html>
+            <body>
+                <h1 class="firstHeading">Chat domestique</h1>
+                <div id="mw-content-text">
+                    <p>Article sur les chats.</p>
+                </div>
+            </body>
+        </html>
+        """
+
+        request = Request(url="https://fr.wikipedia.org/wiki/Chat")
+        response = HtmlResponse(
+            url="https://fr.wikipedia.org/wiki/Chat",
+            request=request,
+            body=html_content.encode("utf-8"),
+            encoding="utf-8",
+        )
+
+        # Appeler parse_start_url au lieu de parse_page
+        results = list(self.spider.parse_start_url(response))
+
+        # Vérifier qu'on obtient au moins un résultat
+        self.assertGreater(len(results), 0, "parse_start_url should yield items")
+        
+        # Vérifier que le résultat a la structure attendue
+        item = results[0]
+        self.assertIn("titre", item)
+        self.assertEqual(item["titre"], "Chat domestique")
+
 
 
 if __name__ == "__main__":

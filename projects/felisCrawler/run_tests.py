@@ -1,6 +1,7 @@
 import sys
 import unittest
-from pathlib import Path
+import os
+from   pathlib  import Path
 
 
 def run_all_tests() -> None:

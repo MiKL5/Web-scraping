@@ -1,20 +1,21 @@
 import sys
 import unittest
-from pathlib import Path
+from   pathlib     import Path
+from   scrapy.http import HtmlResponse
 
-from scrapy.http import HtmlResponse
 
 # Add project root to path
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from wikipedia.spiders.feliscrawler_spider import FeliscrawlerSpider
+from wikipedia.spiders.feliscrawler_spider import feliscrawlerSpider
 
 
 class TestNavigationRules(unittest.TestCase):
     def setUp(self) -> None:
         # Extrait le LinkExtractor des règles du spider
         # La règle 0 est celle qui nous intéresse
-        self.link_extractor = FeliscrawlerSpider.rules[0].link_extractor
+        self.spider = feliscrawlerSpider()
+        self.link_extractor = self.spider.rules[0].link_extractor
 
     def test_allowed_links(self) -> None:
         """Teste que les liens pertinents sont extraits."""

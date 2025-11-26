@@ -1,17 +1,16 @@
 import sys
 import unittest
-from pathlib import Path
-
-from scrapy.http import HtmlResponse, Request
+from   pathlib     import Path
+from   scrapy.http import HtmlResponse, Request
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from wikipedia.spiders.feliscrawler_spider import FeliscrawlerSpider
+from wikipedia.spiders.feliscrawler_spider import feliscrawlerSpider
 
 
 class TestEdgeCases(unittest.TestCase):
     def setUp(self) -> None:
-        self.spider = FeliscrawlerSpider()
+        self.spider = feliscrawlerSpider()
 
     def test_missing_title(self) -> None:
         """Tester le comportement quand le titre h1 est manquant."""

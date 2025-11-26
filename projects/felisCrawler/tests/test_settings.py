@@ -1,6 +1,7 @@
 import unittest
 import sys
-from pathlib import Path
+from   pathlib import Path
+
 
 # Ajouter le dossier racine au path
 sys.path.append(str(Path(__file__).parent.parent.resolve()))

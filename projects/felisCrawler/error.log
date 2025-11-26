@@ -1,0 +1,75 @@
+./Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/__init__.py:14: UserWarning: The NumPy module was reloaded (imported a second time). This can in some cases result in small but subtle issues and is discouraged.
+  __import__(_dependency)
+./Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/__init__.py:14: UserWarning: The NumPy module was reloaded (imported a second time). This can in some cases result in small but subtle issues and is discouraged.
+  __import__(_dependency)
+E
+======================================================================
+ERROR: test_app_visualization (tests.test_app_ui.TestAppUI.test_app_visualization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Volumes/T7/gh/wS/projects/felisCrawler/tests/test_app_ui.py", line 118, in test_app_visualization
+    import app
+  File "/Volumes/T7/gh/wS/projects/felisCrawler/app.py", line 311, in <module>
+    f.write(f"DF:\n{df}\nTypes:\n{df.dtypes}\n")
+                   ^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/frame.py", line 1218, in __repr__
+    return self.to_string(**repr_params)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/frame.py", line 1398, in to_string
+    return fmt.DataFrameRenderer(formatter).to_string(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        buf=buf,
+        ^^^^^^^^
+        encoding=encoding,
+        ^^^^^^^^^^^^^^^^^^
+        line_width=line_width,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/formats/format.py", line 962, in to_string
+    string = string_formatter.to_string()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/formats/string.py", line 29, in to_string
+    text = self._get_string_representation()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/formats/string.py", line 53, in _get_string_representation
+    return self._fit_strcols_to_terminal_width(strcols)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/io/formats/string.py", line 157, in _fit_strcols_to_terminal_width
+    max_len = Series(lines).str.len().max()
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/series.py", line 6538, in max
+    return NDFrame.max(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/generic.py", line 12469, in max
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "max",
+        ^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/generic.py", line 12442, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/series.py", line 6478, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/pandas/core/nanops.py", line 1098, in reduction
+    result = getattr(values, meth)(axis)
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/numpy/_core/_methods.py", line 43, in _amax
+    return umr_maximum(a, axis, None, out, keepdims, initial, where)
+TypeError: int() argument must be a string, a bytes-like object or a real number, not '_NoValueType'
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.094s
+
+FAILED (errors=1)
