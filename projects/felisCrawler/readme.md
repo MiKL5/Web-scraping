@@ -163,7 +163,7 @@ mypy .
 ```-->
 Pour plus de détails sur chaque type de test, exemples, troubleshooting et guide de contribution aux tests
 
-👉 **[Consulter TESTING.md](TESTING.md)**
+👉 **[Consulter testing.md](testing.md)**
 
 <details>
 <summary>Les problèmes courants</summary><hr>
