@@ -10,6 +10,10 @@ Il s'agit d'un spider Scrapy visant à extraire automatiquement des informations
 Le but est de collecter et structurer les données pour chaque livre d’une page principale.
 ---
 ## **Le fonctionnement avec le langage de requête "xpath"**
+
+<details>
+<sumary><h2><b>Le fonctionnement avec le langage de requête "xpath"</b></h2></sumarr>
+
 1. **Collecte des blocs de livres** avec la requête XPath sur la classe de chaque livre (`//li[@class="col-xs-6 col-sm-4 col-md-3 col-lg-3"]`).
 2. **Extraction des informations** pour chaque livre :
    * Titre (`.//h3/a/@title`)
@@ -23,8 +27,14 @@ Le but est de collecter et structurer les données pour chaque livre d’une pag
 ### **Références**
 [Documentation officielle Scrapy](https://docs.scrapy.org/)  
 [XPath Cheatsheet](https://devhints.io/xpath)
+
+</details>
+
 ___
 ## **Le fonctionnement avec le "CSS"**
+
+<details>
+
 * Récupération des prix des livres présents avec le sélecteur CSS `p.price_color`.
 * Envoi des résultats sous forme de dictionnaire contenant le prix extrait.
 ### **Notes**
@@ -32,11 +42,17 @@ ___
 * Le spider explore uniquement la page d’accueil dans cette version.
 ### **Références**
 [CSS Selectors Reference](https://developer.mozilla.org/fr/docs/Web/CSS/CSS_Selectors)
+
+</details>
+
 ___
 ## **Exporter les données**
+
+<details>
+
 * En "json" ➜ `scrapy runspider b2s -o data.json`
   * Faire '`ctrl` + `A` + `K` + `F`' pour l'indentation.
-* En "csv"  ➜ `scrapy runspider b2s -o data.csv`
+* En "csv" ➜ `scrapy runspider b2s -o data.csv`
 
 Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' encode les caractères.  
 ### **Références**
@@ -44,8 +60,14 @@ Dans "settings", '`FEED_EXPORT_ENCODING = 'utf-8'`' encode les caractères.
 [Documentation officielle Scrapy - Item Exporters](https://docs.scrapy.org/en/latest/topics/item-exporters.html)  
 [Documentation officielle Scrapy - Commandes CLI](https://docs.scrapy.org/en/latest/topics/commands.html#running-spiders)  
 [Documentation officielle Scrapy - Paramètre FEED_EXPORT_ENCODING](https://docs.scrapy.org/en/latest/topics/settings.html#feed-export-encoding)
+
+</details>
+
 ___
 ## **Récupérer les données sur plusieurs pages**
+
+<details>
+
 ### **Gestion de la pagination**
 * Le lien vers la page suivante est extrait par `//li[@class='next']/a/@href`.
 * Si ce lien existe, le spider construit l’URL suivante et continue jusqu’à la dernière page.
@@ -60,3 +82,5 @@ ___
 ### **Références**
 [Documentation officielle Scrapy - Parsing Pages with XPath](https://docs.scrapy.org/en/latest/topics/selectors.html)  
 [Documentation officielle Scrapy - Follow Links Documentation](https://docs.scrapy.org/en/latest/topics/request-response.html#scrapy.http.Request.follow)
+
+</details>
