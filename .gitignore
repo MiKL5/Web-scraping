@@ -236,3 +236,11 @@ projects/felisCrawler/tests/__pycache__/._test_app_coverage.cpython-313-pytest-8
 .gitignore
 projects/felisCrawler/._test.csv
 projects/felisCrawler/._walkthrough.md
+exersises/b2s/main.py
+exersises/b2s/quotes_df.json
+exersises/b2s/quotes.csv
+exersises/b2s/quotes.json
+exersises/b2s/quotes.xlsx
+projects/quotes/quotes_df.json
+projects/quotes/quotes.csv
+projects/quotes/quotes.xlsx
