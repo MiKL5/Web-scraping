@@ -244,3 +244,14 @@ exersises/b2s/quotes.xlsx
 projects/quotes/quotes_df.json
 projects/quotes/quotes.csv
 projects/quotes/quotes.xlsx
+projects/quotesApi/quotesApi/spiders/export/quotes.csv
+projects/quotesApi/quotesApi/spiders/export/quotes.feather
+projects/quotesApi/quotesApi/spiders/export/quotes.html
+projects/quotesApi/quotesApi/spiders/export/quotes.json
+projects/quotesApi/quotesApi/spiders/export/quotes.md
+projects/quotesApi/quotesApi/spiders/export/quotes.npy
+projects/quotesApi/quotesApi/spiders/export/quotes.parquet
+projects/quotesApi/quotesApi/spiders/export/quotes.pkl
+projects/quotesApi/quotesApi/spiders/export/quotes.tex
+projects/quotesApi/quotesApi/spiders/export/quotes.txt
+projects/quotesApi/quotesApi/spiders/export/quotes.xlsx

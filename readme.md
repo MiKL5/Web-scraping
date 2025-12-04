@@ -9,7 +9,8 @@ Ce qui implique l'utilisation de scripts ou d'outils pour parcourir les pages we
 
 1. [Quotes](projects/quotes)
 2. [Books](projects/books2scrape)
-3. [FelisCrawler](projects/felisCrawler)
+3. [Quotes API](projects/quotesApi)
+4. [FelisCrawler](projects/felisCrawler)
 <!-- ## Projets avec Selenium<a href="#"><img align="cetner" src="https://www.selenium.dev/images/selenium_logo_square_green.png" alt="Selenium" height="18px"></a>
 1. [Amazon product scraper](amazonProductScraper)
 2. [Indeed job scraper](indeedJobScraper)
