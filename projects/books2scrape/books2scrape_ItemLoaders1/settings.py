@@ -14,6 +14,7 @@ NEWSPIDER_MODULE = "books2scrape.spiders"
 
 ADDONS = {}
 
+FEED_EXPORT_ENCODING = 'utf-8'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "books2scrape (+http://www.yourdomain.com)"
