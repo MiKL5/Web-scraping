@@ -84,3 +84,25 @@ ___
 [Documentation officielle Scrapy - Follow Links Documentation](https://docs.scrapy.org/en/latest/topics/request-response.html#scrapy.http.Request.follow)
 
 </details>
+
+___
+## **Rules objects**
+
+<details>
+
+### **Les règles**
+* Parcours complet de toutes les pages du catalogue via règles automatiques  
+* Extraction détaillée sur chaque page livre :
+    * Titre (//h1/text())
+    * Prix (//p[@class='price_color']/text())
+    * UPC/Product ID (//th[text()='UPC']/following-sibling::td/text())
+    * Type de produit (//th[text()='Product Type']/following-sibling::td/text())
+    * Stock/Disponibilité (//th[text()='Availability']/following-sibling::td/text())
+* Double règle de navigation intelligente :
+    * Suivi des liens livres avec extraction (parse_item)
+    * Pagination automatique (next)
+
+### **Références**
+[Scrapy - CrawlSpider & Rules](https://docs.scrapy.org/en/latest/topics/spiders.html#crawlspider)
+
+</details>
