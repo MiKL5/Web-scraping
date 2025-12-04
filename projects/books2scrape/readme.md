@@ -27,6 +27,7 @@ Le but est de collecter et structurer les données pour chaque livre d’une pag
 ### **Références**
 [Documentation officielle Scrapy](https://docs.scrapy.org/)  
 [XPath Cheatsheet](https://devhints.io/xpath)
+[Scrapy Crawl Spider - A Complete Guide](https://www.youtube.com/watch?v=MaPyt6dpnVY)
 
 </details>
 
@@ -86,11 +87,18 @@ ___
 </details>
 
 ___
-## **Rules objects**
+## **Les "rules objects"**
 
 <details>
 
-### **Les règles**
+### **L'utilité**
+* Les objets rules dans Scrapy CrawlSpider définissent des règles automatiques pour :
+* Extraire des liens spécifiques via LinkExtractor (XPath/CSS/régex)​
+* Appliquer un callback pour parser les pages trouvées (ex: parse_item)​
+* Utiliser `follow = True` pour continuer l'exploration récursive des liens extraits​
+* Parcourir sites/pagination sans écrire manuellement les Request​
+* Elles remplacent la méthode parse() manuelle pour un crawling structuré.
+### **Selles du projet**
 * Parcours complet de toutes les pages du catalogue via règles automatiques  
 * Extraction détaillée sur chaque page livre :
     * Titre (//h1/text())
@@ -103,6 +111,31 @@ ___
     * Pagination automatique (next)
 
 ### **Références**
-[Scrapy - CrawlSpider & Rules](https://docs.scrapy.org/en/latest/topics/spiders.html#crawlspider)
+[Scrapy - CrawlSpider & Rules](https://docs.scrapy.org/en/latest/topics/spiders.html#crawlspider)  
+[Following LINKS Automatically with Scrapy CrawlSpider](https://www.youtube.com/watch?v=o1g8prnkuiQ)
+</details>
+
+___
+## **Les chargeurs d'articles**
+
+<details>
+
+### **Définition**
+Les Item Loaders dans Scrapy sont des objets conçus pour faciliter et standardiser la collecte, le nettoyage et la transformation des données extraites avant de les stocker dans des Items.
+Ils permettent d’associer à chaque champ (field) des fonctions de traitement en entrée (input processors) et en sortie (output processors), ce qui rend le code de scraping plus modulaire et maintenable.
+Par exemple, ils peuvent nettoyer du texte, convertir des formats, concaténer plusieurs valeurs extraites sous une même clé, ou filtrer les données inutiles.
+Pour remplir un Item avec un Item Loader, on utilise des méthodes comme add_xpath(), add_css() ou add_value() qui extraient ou assignent des valeurs, toujours traitées par les processeurs définis.
+Enfin, la méthode load_item() retourne l’Item final, prêt à être renvoyé ou exporté.
+Les Item Loaders allègent ainsi la logique dans les spiders et favorisent la réutilisation de règles de nettoyage entre projets ou spiders différents.
+### **Les avantages d'itemLoader**
+* Centralisation des règles de nettoyage dans items.py
+* Réutilisabilité des processors entre spiders
+* Utiliser `add_xpath()` au lieu de `xpath().get()` est plus propre
+* Gestion automatique des valeurs None/vides
+* Validation et transformation standardisées
+### **Références**
+[Scrapy Item Loaders officiel](https://docs.scrapy.org/en/latest/topics/loaders.html)  
+[Explications détaillées GeeksforGeeks](https://www.geeksforgeeks.org/python/scrapy-item-loaders/)  
+[Tutoriel vidéo Scrapy Items & Item Loaders](https://www.youtube.com/watch?v=NWBso2Jv4Ug)
 
 </details>
