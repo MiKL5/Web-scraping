@@ -1,0 +1,64 @@
+MIT License
+
+Copyright (c) 2025 Bypass Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+___
+## **Avertissement à propos de l'utilisation**
+Ce logiciel est fourni à des fins éducatives et de recherche uniquement. 
+### ⚠️ **La responsabilités de l'utilisateur**
+L'utilisateur de ce logiciel est seul responsable de :
+1. **Respect des lois** : Se conformer aux lois et réglementations locales, nationales et internationales concernant le web scraping et l'accès aux données.
+2. **Conditions d'utilisation** : Respecter les conditions d'utilisation (Terms of Service) et les fichiers robots.txt des sites web ciblés.
+3. **Protection des données** : Se conformer aux réglementations sur la protection des données (RGPD, CCPA, etc.).
+4. **Usage éthique** : Utiliser ce logiciel de manière éthique et responsable, sans causer de préjudice aux sites web ou à leurs utilisateurs.
+5. **Autorisation** : Obtenir les autorisations nécessaires avant de scraper des sites web, en particulier pour un usage commercial.
+### 🚫 **Les utilisations interdites**
+Ce logiciel ne doit PAS être utilisé pour :
+* Violer les droits de propriété intellectuelle
+* Accéder à des données personnelles sans consentement
+* Surcharger ou nuire à des serveurs web
+* Contourner des mesures de sécurité pour des activités malveillantes
+* Collecter des données à des fins de spam ou de phishing
+* Toute activité illégale ou contraire à l'éthique
+### 📜 **La clause de non-responsabilité**
+LES AUTEURS ET CONTRIBUTEURS DE CE PROJET DÉCLINENT TOUTE RESPONSABILITÉ CONCERNANT :
+* Les dommages directs ou indirects résultant de l'utilisation de ce logiciel
+* Les violations de lois ou de conditions d'utilisation commises par les utilisateurs
+* Les pertes de données ou interruptions de service causées par ce logiciel
+* Toute conséquence légale découlant de l'utilisation inappropriée de ce logiciel
+
+En utilisant ce logiciel, vous acceptez d'être seul responsable de son utilisation et de ses conséquences.
+### ✅ **Les utilisations recommandées**
+Ce logiciel est conçu pour des cas d'usage légitimes tels que :
+* Recherche académique et analyse de données publiques
+* Veille concurrentielle autorisée
+* Agrégation de données publiques avec consentement
+* Tests de sécurité et de performance sur vos propres sites
+* Automatisation de tâches répétitives avec autorisation
+## **Les crédits et attributions**
+Ce projet utilise les technologies et ressources suivantes :
+* **Scrapy** - Framework de web scraping (BSD License)
+* **User-Agent Lists** - [tamimibrahim17/List-of-user-agents](https://github.com/tamimibrahim17/List-of-user-agents)
+* **curl_cffi** - TLS fingerprinting (MIT License)
+* **Selenium** - Automatisation de navigateur (Apache License 2.0)
+* **Playwright** - Automatisation de navigateur (Apache License 2.0)
+___
+**Date de dernière mise à jour** : Décembre 2025
