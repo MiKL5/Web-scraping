@@ -281,3 +281,15 @@ exersises/wikipedia/wikipedia/spiders/wikipedia_spider.py
 exersises/wikipedia/wikipedia/spiders/__pycache__/__init__.cpython-313.pyc
 exersises/wikipedia/wikipedia/spiders/__pycache__/wikipedia_spider.cpython-313.pyc
 exersises/wikipedia/scrapy.cfg
+exersises/wikisplash/wikisplash/__init__.py
+exersises/wikisplash/wikisplash/items.py
+exersises/wikisplash/wikisplash/middlewares.py
+exersises/wikisplash/wikisplash/pipelines.py
+exersises/wikisplash/wikisplash/settings.py
+exersises/wikisplash/wikisplash/__pycache__/__init__.cpython-313.pyc
+exersises/wikisplash/wikisplash/__pycache__/settings.cpython-313.pyc
+exersises/wikisplash/wikisplash/spiders/__init__.py
+exersises/wikisplash/wikisplash/spiders/wiki.py
+exersises/wikisplash/wikisplash/spiders/__pycache__/__init__.cpython-313.pyc
+exersises/wikisplash/wikisplash/spiders/__pycache__/wiki.cpython-313.pyc
+exersises/wikisplash/scrapy.cfg
