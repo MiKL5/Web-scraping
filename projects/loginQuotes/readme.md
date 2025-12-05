@@ -1,5 +1,5 @@
 # **LoginQuotes**<a href="../../"><img align="right" src="../../assets/atomicWebScraping.png" alt="Web scraping" height="64px"></a>
-<div align="centger">
+<div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.13.9-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Scrapy](https://img.shields.io/badge/Scrapy-2.13.4-60A839?style=for-the-badge&logo=scrapy&logoColor=white)
@@ -17,18 +17,18 @@ C'est un spider avancé pour extraire des citations depuis "`quotes.toscrape.com
 * **Nettoyage des données** (suppression des guillemets)
 * **Logs détaillés** pour suivre la progression
 * **Gestion des cookies** automatique
-* **Respect du robots.txt**
-* **Rate limiting** (1 requête/seconde)
-* **Export JSON/CSV/XML** supporté
+* **Respect du `robots.txt`**
+* **`Rate limiting`** (1 requête/seconde)
+* **Export `JSON`/`CSV`/`XML`** supporté
 ## Les prérequis
 * **Python** >= 3.8
-* **pip** (gestionnaire de paquets Python)
+* **`pip`** (gestionnaire de paquets Python)
 * **Environnement virtuel** (recommandé)
 ### Les technologies utilisées
 Technologie | Version | Description
 ---|---|---
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) | 3.13.9 | Langage de programmation
-![Scrapy](https://img.shields.io/badge/Scrapy-60A839?logo=scrapy&logoColor=white) | 2.13.4 | Framework de web scrapin|
+![Scrapy](https://img.shields.io/badge/Scrapy-60A839?logo=scrapy&logoColor=white) | 2.13.4 | Framework de web scraping
 ![lxml](https://img.shields.io/badge/lxml-orange) | 6.0.2 | Parser XML/HTML
 ![Twisted](https://img.shields.io/badge/Twisted-purple) | 25.5.0 | Framework asynchrone
 ![OpenSSL](https://img.shields.io/badge/OpenSSL-721412?logo=openssl&logoColor=white) | 3.5.4 | Sécurité SSL/TLS
@@ -37,14 +37,14 @@ Technologie | Version | Description
 loginQuotes/
 ├── loginQuotes/
 │   ├── __init__.py
-│   ├── settings.py          # Configuration Scrapy
+│   ├── settings.py          # Configuration de Scrapy
 │   ├── middlewares.py       # Middlewares personnalisés
 │   ├── pipelines.py         # Pipelines de traitement
 │   └── spiders/
 │       ├── __init__.py
-│       └── login.py         # 🕷️ Spider principal
+│       └── login.py         # Spider principal
 ├── scrapy.cfg               # Configuration du projet
-├── data.json                # 📄 Données extraites
+├── data.json                # Données récupérées
 ├── requirements.txt         # Dépendances Python
 └── README.md                # Documentation
 ```
@@ -54,19 +54,19 @@ loginQuotes/
 scrapy runspider loginQuotes/spiders/login.py -O data.json
 ```
 ### **Les options d'export**
-**JSON :**
+**`JSON` :**
 ```bash
 scrapy runspider loginQuotes/spiders/login.py -O data.json
 ```
-**CSV :**
+**`CSV` :**
 ```bash
 scrapy runspider loginQuotes/spiders/login.py -O data.csv
 ```
-**XML :**
+**`XML` :**
 ```bash
 scrapy runspider loginQuotes/spiders/login.py -O data.xml
 ```
-**JSON Lines (pour gros volumes) :**
+**`JSON` Lines (pour gros volumes) :**
 ```bash
 scrapy runspider loginQuotes/spiders/login.py -O data.jsonl
 ```
@@ -93,7 +93,7 @@ cd loginQuotes
 ```bash
 pip install -r requirements.txt
 ```
-Le fichier _**requirements.txt:**_
+Le fichier "_**requirements.txt**_" :
 ```py
 scrapy==2.13.4
 lxml==6.0.2
@@ -106,8 +106,8 @@ cryptography==46.0.3
 <details open>
 <summary>Voir</summary>
 
-### **settings.py**
-```python
+### "**`settings.py`**"
+```py
 # Identification du bot
 BOT_NAME = 'loginQuotes'
 SPIDER_MODULES = ['loginQuotes.spiders']
@@ -127,11 +127,11 @@ USER_AGENT = 'loginQuotes (+http://www.yourdomain.com)'
 ```
 ### **Personnaliser les credentials**
 Modifiez dans `login.py`:
-```python
-formdata={
+```py
+formdata = {
     "csrf_token": token,
-    "username": "votre_username",  # ← Changez ici
-    "password": "votre_password"    # ← Changez ici
+    "username"  : "usr",
+    "password"  : "pwd" 
 }
 ```
 
@@ -194,9 +194,9 @@ sequenceDiagram
 <details open>
 <summary>Voir</summary>
 
-### Problème: AttributeError 'int' object has no attribute 'getall'
-**Cause:** Parenthèses mal placées dans l'XPath
-**Solution:**
+### **Problème : AttributeError 'int' object has no attribute 'getall'**
+**Cause** : les parenthèses sont mal placées dans l'XPath
+**Solution** :
 ```python
 # ❌ Incorrect
 if len(response.xpath('//a')).getall():
@@ -204,8 +204,8 @@ if len(response.xpath('//a')).getall():
 # ✅ Correct
 if response.xpath('//a'):
 ```
-### Problème: Connexion échoue (pas de bouton Logout)
-**Vérifications:**
+### **Problème : la connexion échoue (s'il n'y a pas de bouton Logout)**
+**Vérifier** :
 1. Username/password corrects dans `formdata`
 2. Le CSRF token est bien extrait
 3. Les cookies sont activés (par défaut dans Scrapy)
@@ -216,10 +216,10 @@ def parse(self, response):
     self.logger.debug(f"Response URL: {response.url}")
     self.logger.debug(f"Cookies: {response.request.headers.get('Cookie')}")
 ```
-### Problème: DeprecationWarning start_requests()
-**Solution:** Utiliser `async def start()` au lieu de `def start_requests()`
-### Problème: Bloqué par le serveur (403/429)
-**Solutions:**
+### Problème : deprecationWarning `start_requests()`
+**Solution** : Utiliser `async def start()` au lieu de `def start_requests()`
+### Problème : bloqué par le serveur (403/429)
+**Solutions** :
 * Augmenter `DOWNLOAD_DELAY`
 * Ajouter un User-Agent réaliste
 * Utiliser des proxies rotatifs
