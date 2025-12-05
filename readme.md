@@ -9,7 +9,8 @@ Ce qui implique l'utilisation de scripts ou d'outils pour parcourir les pages we
 3. [Quotes API](projects/quotesApi)
 4. [Bypass](projects/bypass)
 5. [LoginQuotes](projects/loginQuotes)
-6. [FelisCrawler](projects/felisCrawler)
+6. [XHR](projects/xhr)
+7. [FelisCrawler](projects/felisCrawler)
 
 <br><div align="center"><a href="docs"><img src="assets/ws.png" alt="documentation"></a>
 <!--<kbd>_In progress_</kbd>-->
