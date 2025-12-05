@@ -1,0 +1,5 @@
+scrapy==2.13.4
+lxml==6.0.2
+twisted==25.5.0
+pyOpenSSL==25.3.0
+cryptography==46.0.3
