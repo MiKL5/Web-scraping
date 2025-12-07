@@ -1,0 +1,19 @@
+# Core dependencies
+scrapy>=2.11.0
+pymongo>=4.6.0
+Pillow>=10.0.0
+
+# Additional scrapy dependencies
+w3lib>=2.1.0
+itemloaders>=1.1.0
+itemadapter>=0.8.0
+
+# Twisted (async framework for Scrapy)
+Twisted>=22.10.0
+
+# Optional: for better performance
+lxml>=4.9.0
+parsel>=1.8.0
+
+# Optional: for data processing
+python-dotenv>=1.0.0
