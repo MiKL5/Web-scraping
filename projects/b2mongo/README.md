@@ -12,7 +12,7 @@
 Un scraper  pour extraire et stocker les données de livres depuis [books.toscrape.com](https://books.toscrape.com) dans MongoDB.  
 Ce projet permet de scraper automatiquement les informations détaillées de milliers de livres (titre, prix, disponibilité, images, etc.) et de les stocker dans une base MongoDB locale avec téléchargement automatique des images de couverture.
 ---
-### ✨ Les principals fonctionnalités
+### ✨ Les principals fonctionnalités<a href="#"><img align="right" src="../../assets/b2m.png" alt="FelisCrwler" height="256"></a>
 * 📖 Scraping de toutes les catégories de livres
 * 💾 Stockage automatique dans MongoDB
 * 🖼️ Téléchargement des images de couverture

@@ -14,6 +14,9 @@
 ---
 **🎯 Cas d'usage** 👉 Apprentissage du web scraping, analyse de contenu encyclopédique, étude de graphes de liens.
 ___
+
+<a href="#"><img align="right" src="../../assets/felisCrawlerr.png" alt="FelisCrwler"></a>
+
 ## **Les principaux composants du projet sont**
 * Un spider Scrapy avancé multi règles, conçu pour explorer en profondeur les liens encyclopédiques autour des chats sur Wikipédia.
 * L'interface utilisateur graphique avec Streamlit. Elle centralise la configuration, le lancement du scraping, la visualisation des résultats (statistiques, tableaux, graphiques) et la documentation éthique.
